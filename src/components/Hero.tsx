@@ -15,7 +15,7 @@ export default function Hero() {
       />
       <h2 className='text-3xl font-bold mt-2'>{'안녕, 나는 DADA.'}</h2>
       <h3 className='text-xl font-semibold'>Full-stack Engineer</h3>
-      <p>멋있는 개발자로 성장하길 희망해요</p>
+      <p>풀스택 개발자가 되려고 노력중~</p>
       <Link href='/contact'>
         <button className='bg-yellow-500 font-bold rounded-xl py-1 px-4 mt-2'>
           contact
