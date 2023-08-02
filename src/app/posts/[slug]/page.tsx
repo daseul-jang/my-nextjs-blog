@@ -1,6 +1,7 @@
 import AdjacentPostCard from '@/components/AdjacentPostCard';
 import PostContent from '@/components/PostContent';
-import { getPostData } from '@/service/posts';
+import { getAllPosts, getPostData } from '@/service/posts';
+import { Metadata } from 'next';
 import Image from 'next/image';
 
 type Props = {
@@ -8,6 +9,20 @@ type Props = {
     slug: string;
   };
 };
+
+/* export const metadata: Metadata = {
+  title: '아니 왜 안돼',
+}; */
+
+export async function generateMetadata({
+  params: { slug },
+}: Props): Promise<Metadata> {
+  const { title, description } = await getPostData(slug);
+  return {
+    title,
+    description,
+  };
+}
 
 export default async function PostPage({ params: { slug } }: Props) {
   const post = await getPostData(slug);
@@ -28,4 +43,11 @@ export default async function PostPage({ params: { slug } }: Props) {
       </section>
     </article>
   );
+}
+
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({
+    slug: post.path,
+  }));
 }
