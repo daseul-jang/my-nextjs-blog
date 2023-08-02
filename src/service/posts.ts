@@ -1,5 +1,6 @@
 import path from 'path';
 import { promises as fs, readFile } from 'fs';
+import { cache } from 'react';
 
 export type Post = {
   title: string;
@@ -16,12 +17,15 @@ export type PostData = Post & {
   prev: Post | null;
 };
 
-export async function getAllPosts(): Promise<Post[]> {
+// 페이지 렌더링 시 cache 적용 (중복된 데이터 요청 제거)
+// 한 페이지 내의 여러 컴포넌트에서 같은 함수 호출시 cache 된 값을 이용
+// 같은 함수가 중복 호출되는 걸 방지 => 성능 UP
+export const getAllPosts = cache(async () => {
   const filePath = path.join(process.cwd(), 'data', 'posts.json');
   const data = await fs.readFile(filePath, 'utf-8');
   const posts: Post[] = await JSON.parse(data);
   return posts.sort((a, b) => (a.date > b.date ? -1 : 1));
-}
+});
 
 export async function getFeaturedPosts(): Promise<Post[]> {
   return getAllPosts().then((posts) => posts.filter((post) => post.featured));
