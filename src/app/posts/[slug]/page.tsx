@@ -10,6 +10,13 @@ type Props = {
   };
 };
 
+<<<<<<< HEAD
+=======
+/* export const metadata: Metadata = {
+  title: '아니 왜 안돼',
+}; */
+
+>>>>>>> 1e4f500160b18f113198396ac567f42fdb0a4fdb
 export async function generateMetadata({
   params: { slug },
 }: Props): Promise<Metadata> {
