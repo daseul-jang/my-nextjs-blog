@@ -1,5 +1,4 @@
 import { sendEmail } from '@/service/email';
-import { error } from 'console';
 import * as yup from 'yup';
 
 const bodySchema = yup.object().shape({
